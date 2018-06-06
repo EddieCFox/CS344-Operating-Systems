@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# This probably looks different than a lot of compiling scripts, because I did something different. I felt instead of having 4 c files with lots of identical code, it would be better to 
+# have two c files with very different code, the server and the client. I still have the appropriate names after compiling the script, but in my c files, I use pre-defined macros for 
+# encrypting and decrypting that are inserted manually into the GCC compilation process as appropriate. Either encrypt or decrypt will be defined in each compiled file but the keygen,
+# but only one of them. The code is identical for the most part, but behavior changes slightly depending on which macro is defined, using #ifdef and #elif to check. 
+
+gcc keygen.c -o keygen -std=c99
+gcc server.c -o otp_enc_d -D ENCRYPT -std=c99
+gcc server.c -o otp_dec_d -D DECRYPT -std=c99
+gcc client.c -o otp_enc -D ENCRYPT -std=c99
+gcc client.c -o otp_dec -D DECRYPT -std=c99
